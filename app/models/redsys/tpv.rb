@@ -1,7 +1,6 @@
 require 'openssl'
 require 'base64'
 require 'json'
-require 'rails-i18n'
 
 module Redsys
   class Tpv
@@ -64,7 +63,7 @@ module Redsys
     end
 
     def merchant_params_json
-      merchant_parameters = { 
+      merchant_parameters = {
         :DS_MERCHANT_AMOUNT => @amount,
         :DS_MERCHANT_ORDER => @order,
         :DS_MERCHANT_MERCHANTCODE => @merchant_code,
@@ -108,7 +107,7 @@ module Redsys
       def encrypt_mac256(data, key)
         Base64.strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), key, data))
       end
-    
+
       def encrypt_3DES(data, key)
         cipher = OpenSSL::Cipher::Cipher.new('DES3')
         cipher.encrypt
