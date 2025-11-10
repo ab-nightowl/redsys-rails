@@ -26,7 +26,7 @@ module Redsys
       merchant_name ||= ''
       product_description ||=''
 
-      @amount = (amount * 100).to_i.to_s
+      @amount = amount
       #TODO: there should be a validation of the order format. So far we only make it a string of 12 positions
       @order = order.to_s.rjust(12, '0')
       @language = language
