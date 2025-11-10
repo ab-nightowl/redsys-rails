@@ -1,6 +1,6 @@
 module Redsys
   class TpvController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: [:confirmation]
+    # skip_before_action :verify_authenticity_token, only: [:confirmation]
 
     #
     # Formulario de salto a la pasarela de pago
@@ -23,6 +23,6 @@ module Redsys
       product_description = params[:product_description]
       @tpv = Redsys::Tpv.new(amount, order, language, merchant_url, url_ok, url_ko, merchant_name, product_description)
     end
-    
+
   end
 end
