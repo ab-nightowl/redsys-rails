@@ -3,6 +3,11 @@
   <%= hidden_field_tag 'Ds_MerchantParameters', @tpv.merchant_params %>
   <%= hidden_field_tag 'Ds_Signature', @tpv.merchant_signature %>
 <% end %>
+<div class="text-center">
+  <div class="spinner-border m-5 p-4" style="width: 5rem; height: 5rem;" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
 <script type="text/javascript">
   document.getElementById("redsys_tpv_form").submit();
 </script>
