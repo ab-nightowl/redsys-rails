@@ -15,7 +15,17 @@ module Redsys
       Rails.configuration.redsys_rails[:signature_version]
     end
 
-    def initialize(amount, order, language, merchant_url = nil, url_ok = nil, url_ko = nil, merchant_name = nil, product_description = nil)
+    def initialize(
+      amount,
+      order,
+      language,
+      merchant_url = nil,
+      url_ok = nil,
+      url_ko = nil,
+      merchant_name = nil,
+      product_description = nil,
+      payment_method = nil
+    )
       amount        ||= 0
       order         ||= 0
       language      ||= language_from_locale
@@ -24,6 +34,8 @@ module Redsys
       url_ko        ||= ''
       merchant_name ||= ''
       product_description ||=''
+      # Set default payment method to 'c' for CARD
+      payment_method ||='c'
 
       @amount = amount
       #TODO: there should be a validation of the order format. So far we only make it a string of 12 positions
@@ -34,6 +46,7 @@ module Redsys
       @url_ko = url_ko
       @merchant_name = merchant_name
       @product_description = product_description
+      @payment_method = payment_method
       @currency = Rails.configuration.redsys_rails[:merchant_currency]
       @merchant_code = Rails.configuration.redsys_rails[:merchant_code]
       @terminal = Rails.configuration.redsys_rails[:merchant_terminal]
@@ -75,7 +88,8 @@ module Redsys
         :DS_MERCHANT_URLOK => @url_ok,
         :DS_MERCHANT_URLKO => @url_ko,
         :DS_MERCHANT_MERCHANTNAME => @merchant_name,
-        :DS_MERCHANT_PRODUCTDESCRIPTION => @product_description
+        :DS_MERCHANT_PRODUCTDESCRIPTION => @product_description,
+        :DS_MERCHANT_PAYMETHODS => @payment_method
       }
       JSON.generate(merchant_parameters)
     end

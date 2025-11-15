@@ -22,7 +22,10 @@ module Redsys
       merchant_url = params[:merchant_url] || redsys_notification_url if defined?(redsys_notification_url)
       merchant_name = params[:merchant_name]
       product_description = params[:product_description]
-      @tpv = Redsys::Tpv.new(amount, order, language, merchant_url, url_ok, url_ko, merchant_name, product_description)
+      payment_method = params[:payment_method]
+      @tpv = Redsys::Tpv.new(
+        amount, order, language, merchant_url, url_ok, url_ko, merchant_name, product_description, payment_method
+      )
     end
 
   end
